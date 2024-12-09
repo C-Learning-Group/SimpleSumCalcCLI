@@ -1,9 +1,24 @@
-﻿namespace SimpleCalcCLI
+﻿using System;
+
+namespace SimpleCalcCLI
 {
+    public class Calculator
+    {
+        public static bool TryParseNumber(string? input, out long number)
+        {
+            return Int64.TryParse(input, out number);
+        }
+
+        public static long CalculateSum(long firstNumber, long secondNumber)
+        {
+            return firstNumber + secondNumber;
+        }
+    }
     internal class Program
     {
         static void Main(string[] args)
         {
+            Calculator calculator = new Calculator();
             long firstVal = 0, secondVal = 0;
             bool isFirstValid = false, isSecondValid = false;
 
@@ -13,7 +28,7 @@
                 {
                     Console.WriteLine("Please enter the first number:");
                     string? firstInput = Console.ReadLine();
-                    if (Int64.TryParse(firstInput, out firstVal))
+                    if (Calculator.TryParseNumber(firstInput, out firstVal))
                     {
                         isFirstValid = true;
                     }
@@ -28,7 +43,7 @@
                 {
                     Console.WriteLine("Please enter the second number:");
                     string? secondInput = Console.ReadLine();
-                    if (Int64.TryParse(secondInput, out secondVal))
+                    if (Calculator.TryParseNumber(secondInput, out secondVal))
                     {
                         isSecondValid = true;
                     }
@@ -39,9 +54,9 @@
                     }
                 }
             }
-
-            long sum = firstVal + secondVal;
+            long sum = Calculator.CalculateSum(firstVal, secondVal);
             Console.WriteLine($"The sum of {firstVal} + {secondVal} = {sum}");
         }
     }
+
 }
